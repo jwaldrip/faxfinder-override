@@ -10,17 +10,32 @@ class FaxFinderOverrideApp < Sinatra::Base
     end
   end
 
-  get '/images/top.jpg' do
-    send_file 'assets/logo.png'
+  def self.override(path, verb = :get, &block)
+    block ||= proc {
+      file = path
+      file << '.html' unless File.extname(file).present?
+      send_file File.join 'overrides', file
+    }
+    send verb, path, &block
   end
 
-  get '/images/FF130_230.gif' do
-    send_file 'assets/entry.png'
+  override '/main' do
+    erb File.read 'overrides/main.html.erb'
   end
 
-  get '/css/stylesheet.css' do
-    send_file 'assets/stylesheet.css'
+  override '/login' do
+    erb File.read 'overrides/login.html.erb'
   end
+
+  override '/images/top.jpg' do
+    send_file 'overrides/images/top.png'
+  end
+
+  override '/images/FF130_230.gif' do
+    send_file 'overrides/images/entry.png'
+  end
+
+  override '/css/stylesheet.css'
 
   match /(.*)/ do |path|
     proxy_request path

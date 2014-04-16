@@ -1,0 +1,168 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>FaxFinder FF230 2.2.9.2:  Home >> Main Page</title>
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="expires" content="0" />
+    <meta name="description" content="PHONEWARE Fax Web Management Interface" />
+    <meta name="date" content="<%= Time.find_zone('Arizona').now.to_formatted_s(:iso8601) %>" />
+    <link type="text/css" href="/css/stylesheet.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body margin="0" bgcolor="#eeeeee">
+<script type="text/javascript">
+    var form_submitted = false;
+
+
+    function submitForm(formName){
+        if (form_submitted) {
+            return false;
+        }
+        else {
+            form_submitted = true;
+            formobj = document.forms[formName];
+            formobj.submit();
+        }
+    }
+    function submitFormAction(formName, formAction){
+        if (form_submitted) {
+            return false;
+        }
+        else {
+            form_submitted = true;
+            formobj = document.forms[formName];
+            formobj.action = formAction;
+            formobj.submit();
+        }
+    }
+    function checkPasswords(formName){
+        if (document.getElementById('passwd').value != document.getElementById('passwd_confirm').value){
+            alert( "Passwords do NOT match.  Please re-enter.");
+            document.getElementById('passwd').focus();
+            return(false);
+        }
+        else {
+            submitForm(formName);
+        }
+    }
+    function validEmail(email){
+        var emailReg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,9})$/;
+        return emailReg.test(email);
+    }
+    function validIP(ipString){
+        //create reqular expression to validate that the
+        //format of the string is at least correct
+        var re = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+
+        //test the input string against the regular expression
+        if (re.test(ipString)) {
+            //now, validate the separate parts
+            var parts = ipString.split(".");
+            if (parseInt(parseFloat(parts[0])) == 0) {
+                return false;
+            }
+            for (var i=0; i<parts.length; i++) {
+                if (parseInt(parseFloat(parts[i])) > 255) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function redirect(new_page){
+        window.location.replace(new_page);
+    }
+    function showHelp(helpLink){
+        helpWindow = window.open( helpLink, "Help", "height=800,width=1000,status=0,toolbar=0,location=0,menubar=0,directories=0,resizable=1,scrollbars=1,history=0");
+        helpWindow.focus();
+    }
+</script>
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" align="center">
+
+    <tr height="73">
+        <td colspan="2" bgcolor="#003366" height="73" valign="top">
+            <img border="0" src="/images/top.jpg" height="72" alt="MultiTech Systems"/>
+        </td>
+    </tr>
+    <tr height="10">
+        <td colspan="2" align="center" background="/images/table-bg.gif" >
+            <table cellspacing="1" cellpadding="1" border="0" align="center" id="menu_bar">
+                <tr>
+                    <td nowrap="nowrap" background="/images/table-bg.gif">
+                        <font color="#336799">|</font>
+                        <a href="/index" style="font-size: 0.9em"><b><font color="#ffffff"><u>Home</u>&nbsp;</font></b></a>
+                    </td>
+                    <td nowrap="nowrap" background="/images/table-bg.gif">
+                        <font color="#336799">|</font>
+                        <a href="/users" style="font-size: 0.9em"><b><font color="#ffffff">User&nbsp;</font></b></a>
+                    </td>
+                    <td nowrap="nowrap" background="/images/table-bg.gif">
+                        <font color="#336799">|</font>
+                        <a href="/contacts" style="font-size: 0.9em"><b><font color="#ffffff">Contacts&nbsp;</font></b></a>
+                    </td>
+                    <td nowrap="nowrap" background="/images/table-bg.gif">
+                        <font color="#336799">|</font>
+                        <a href="/send_fax" style="font-size: 0.9em"><b><font color="#ffffff">Send Fax&nbsp;</font></b></a>
+                    </td>
+                    <td nowrap="nowrap" background="/images/table-bg.gif">
+                        <font color="#336799">|</font>
+                        <a href="/logout" style="font-size: 0.9em"><b><font color="#ffffff">Logout&nbsp;</font></b></a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+</table>
+<table cellspacing="0" cellpadding="0" border="0" width="940" align="center">
+    <tr>
+        <td valign="top">
+
+
+
+            <table cellspacing="0" cellpadding="3" border="0" align="center" class="bdtext">
+                <tr>
+                    <td colspan="2" align="center" nowrap="nowrap" class=loginheading>
+                        <br/><br/>PHONEWARE Cloud-Based Telecom
+                        <br/>Fax Server<br/><br/><br/>
+                    </td>
+                </tr>
+            </table>
+            <table cellspacing="0" cellpadding="3" border="0" align="center" class="bdtext">
+                <tr>
+                    <td align="right">
+                        <img src="/images/FF130_230.gif"/>
+                    </td>
+                    <td>&nbsp;
+                    </td>
+                    <td nowrap="nowrap">
+                        PHONEWARE, Inc.<br/>
+                        20827 N. Cave Creek Road, #105<br/>
+                        Phoenix, AZ  85024<br/>
+                        <a href="http://www.azphoneware.com/" target="_blank"><font class="ahrefhome"><b>www.azphoneware.com</b></font></a><br/>
+                        <br/>
+
+                        Tel: (602) 445-7777<br/>
+                        Fax: (602) 445-7778
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
